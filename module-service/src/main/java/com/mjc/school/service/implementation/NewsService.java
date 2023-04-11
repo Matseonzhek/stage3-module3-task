@@ -1,6 +1,7 @@
 package com.mjc.school.service.implementation;
 
-import com.mjc.school.repository.implementation.NewsRepository;
+
+import com.mjc.school.repository.interfaces.NewsRepository;
 import com.mjc.school.repository.model.NewsModel;
 import com.mjc.school.service.annotation.Validate;
 import com.mjc.school.service.dto.NewsDtoRequest;
@@ -32,14 +33,14 @@ NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
     @Validate
     @Override
     public List<NewsDtoResponse> readAll() {
-        return NewsMapper.INSTANCE.listNewsToNewsDtoResponse(newsRepository.readAll());
+        return NewsMapper.INSTANCE.listNewsToNewsDtoResponse(newsRepository.findAll());
     }
 
     @Validate(value = "checkNewsId")
     @Override
     public NewsDtoResponse readById(Long id) {
-        if (newsRepository.existById(id)) {
-            Optional<NewsModel> optionalNewsModel = newsRepository.readById(id);
+        if (newsRepository.existsById(id)) {
+            Optional<NewsModel> optionalNewsModel = newsRepository.findById(id);
             return NewsMapper.INSTANCE.newsToNewsDtoResponse(optionalNewsModel.get());
         } else {
             throw new NotFoundException(NEWS_NOT_EXIST);
@@ -53,18 +54,18 @@ NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
         LocalDateTime localDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         newsModel.setCreateDate(localDateTime);
         newsModel.setUpdateDate(localDateTime);
-        NewsModel createdNewsModel = newsRepository.create(newsModel);
+        NewsModel createdNewsModel = newsRepository.save(newsModel);
         return NewsMapper.INSTANCE.newsToNewsDtoResponse(createdNewsModel);
     }
 
     @Validate(value = "checkNews")
     @Override
     public NewsDtoResponse update(NewsDtoRequest updateRequest) {
-        if (newsRepository.existById(updateRequest.getId())) {
+        if (newsRepository.existsById(updateRequest.getId())) {
             NewsModel newsModel = NewsMapper.INSTANCE.newsDtoRequestToNews(updateRequest);
             LocalDateTime updatedDate = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
             newsModel.setUpdateDate(updatedDate);
-            NewsModel updatedNewsModel = newsRepository.update(newsModel);
+            NewsModel updatedNewsModel = newsRepository.save(newsModel);
             return NewsMapper.INSTANCE.newsToNewsDtoResponse(updatedNewsModel);
         } else {
             throw new NotFoundException(NEWS_NOT_EXIST);
@@ -74,8 +75,9 @@ NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
     @Validate(value = "checkNewsId")
     @Override
     public boolean deleteById(Long id) {
-        if (newsRepository.existById(id)) {
-            return newsRepository.deleteById(id);
+        if (newsRepository.existsById(id)) {
+            newsRepository.deleteById(id);
+            return true;
         } else {
             throw new NotFoundException(NEWS_NOT_EXIST);
         }

@@ -1,6 +1,6 @@
 package com.mjc.school.service.implementation;
 
-import com.mjc.school.repository.implementation.AuthorRepository;
+import com.mjc.school.repository.interfaces.AuthorRepository;
 import com.mjc.school.repository.model.AuthorModel;
 import com.mjc.school.service.annotation.Validate;
 import com.mjc.school.service.dto.AuthorDtoRequest;
@@ -30,14 +30,14 @@ public class AuthorService implements BaseService<AuthorDtoRequest, AuthorDtoRes
     @Validate
     @Override
     public List<AuthorDtoResponse> readAll() {
-        return AuthorMapper.INSTANCE.listAuthorToAuthorDtoResponse(authorRepository.readAll());
+        return AuthorMapper.INSTANCE.listAuthorToAuthorDtoResponse(authorRepository.findAll());
     }
 
     @Validate (value = "checkAuthorId")
     @Override
     public AuthorDtoResponse readById(Long id) {
-        if (authorRepository.existById(id)) {
-            return AuthorMapper.INSTANCE.authorModelToAuthorDtoResponse(authorRepository.readById(id).get());
+        if (authorRepository.existsById(id)) {
+            return AuthorMapper.INSTANCE.authorModelToAuthorDtoResponse(authorRepository.findById(id).get());
         } else {
             throw new NotFoundException(AUTHOR_NOT_EXIST);
         }
@@ -50,19 +50,19 @@ public class AuthorService implements BaseService<AuthorDtoRequest, AuthorDtoRes
         LocalDateTime localDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
         authorModel.setCreatedDate(localDateTime);
         authorModel.setUpdatedDate(localDateTime);
-        AuthorModel createdAuthorModel = authorRepository.create(authorModel);
+        AuthorModel createdAuthorModel = authorRepository.save(authorModel);
         return AuthorMapper.INSTANCE.authorModelToAuthorDtoResponse(createdAuthorModel);
     }
 
     @Validate(value = "checkAuthor")
     @Override
     public AuthorDtoResponse update(AuthorDtoRequest updateRequest) {
-        if (authorRepository.existById(updateRequest.getId())) {
+        if (authorRepository.existsById(updateRequest.getId())) {
             AuthorModel authorModel = AuthorMapper.INSTANCE.authorDtoRequestToAuthorModel(updateRequest);
             LocalDateTime localDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
             authorModel.setName(updateRequest.getName());
             authorModel.setUpdatedDate(localDateTime);
-            return AuthorMapper.INSTANCE.authorModelToAuthorDtoResponse(authorRepository.update(authorModel));
+            return AuthorMapper.INSTANCE.authorModelToAuthorDtoResponse(authorRepository.save(authorModel));
         } else {
             throw new NotFoundException(AUTHOR_NOT_EXIST);
         }
@@ -71,8 +71,9 @@ public class AuthorService implements BaseService<AuthorDtoRequest, AuthorDtoRes
     @Validate(value = "checkAuthorId")
     @Override
     public boolean deleteById(Long id) {
-        if (authorRepository.existById(id)) {
-            return authorRepository.deleteById(id);
+        if (authorRepository.existsById(id)) {
+            authorRepository.deleteById(id);
+            return true;
         } else {
             throw new NotFoundException(AUTHOR_NOT_EXIST);
         }

@@ -2,15 +2,25 @@ package com.mjc.school.repository.model;
 
 import com.mjc.school.repository.BaseEntity;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
+@Table(name = "news")
 public class NewsModel implements BaseEntity<Long> {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "title")
     private String title;
+    @Column(name = "content")
     private String content;
+    @Column(name = "createdDate")
     private LocalDateTime createDate;
+    @Column(name = "updatedDate")
     private LocalDateTime updateDate;
+    @Column(name = "authorId")
     private long authorId;
 
 

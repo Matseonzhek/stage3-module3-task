@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@Repository
+//@Repository
 public class NewsRepository implements BaseRepository<NewsModel, Long> {
 
     private final DataSource dataSource;
 
-    @Autowired
+//    @Autowired
     public NewsRepository(DataSource dataSource) {
         this.dataSource = DataSource.getDataSource();
     }

@@ -22,6 +22,8 @@ public class Menu {
         this.commandsManagement = commandsManagement;
     }
 
+
+
     public void run() {
         boolean isRunning = true;
         Scanner scanner = new Scanner(System.in);

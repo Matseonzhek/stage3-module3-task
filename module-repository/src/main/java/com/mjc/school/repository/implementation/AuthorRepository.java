@@ -10,13 +10,13 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+//@Repository
 public class AuthorRepository implements BaseRepository<AuthorModel, Long> {
 
 
     private final DataSource dataSource;
 
-    @Autowired
+//    @Autowired
     public AuthorRepository(DataSource dataSource) {
         this.dataSource = DataSource.getDataSource();
     }
