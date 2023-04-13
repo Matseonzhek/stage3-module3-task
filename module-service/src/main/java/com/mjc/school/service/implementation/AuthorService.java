@@ -2,17 +2,15 @@ package com.mjc.school.service.implementation;
 
 import com.mjc.school.repository.interfaces.AuthorRepository;
 import com.mjc.school.repository.model.AuthorModel;
+import com.mjc.school.service.BaseService;
 import com.mjc.school.service.annotation.Validate;
 import com.mjc.school.service.dto.AuthorDtoRequest;
 import com.mjc.school.service.dto.AuthorDtoResponse;
 import com.mjc.school.service.exception.NotFoundException;
 import com.mjc.school.service.interfaces.AuthorMapper;
-import com.mjc.school.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static com.mjc.school.service.constants.Constants.AUTHOR_NOT_EXIST;
@@ -33,7 +31,7 @@ public class AuthorService implements BaseService<AuthorDtoRequest, AuthorDtoRes
         return AuthorMapper.INSTANCE.listAuthorToAuthorDtoResponse(authorRepository.findAll());
     }
 
-    @Validate (value = "checkAuthorId")
+    @Validate(value = "checkAuthorId")
     @Override
     public AuthorDtoResponse readById(Long id) {
         if (authorRepository.existsById(id)) {
@@ -47,9 +45,6 @@ public class AuthorService implements BaseService<AuthorDtoRequest, AuthorDtoRes
     @Override
     public AuthorDtoResponse create(AuthorDtoRequest createRequest) {
         AuthorModel authorModel = AuthorMapper.INSTANCE.authorDtoRequestToAuthorModel(createRequest);
-        LocalDateTime localDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        authorModel.setCreatedDate(localDateTime);
-        authorModel.setUpdatedDate(localDateTime);
         AuthorModel createdAuthorModel = authorRepository.save(authorModel);
         return AuthorMapper.INSTANCE.authorModelToAuthorDtoResponse(createdAuthorModel);
     }
@@ -58,11 +53,9 @@ public class AuthorService implements BaseService<AuthorDtoRequest, AuthorDtoRes
     @Override
     public AuthorDtoResponse update(AuthorDtoRequest updateRequest) {
         if (authorRepository.existsById(updateRequest.getId())) {
-            AuthorModel authorModel = AuthorMapper.INSTANCE.authorDtoRequestToAuthorModel(updateRequest);
-            LocalDateTime localDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
+            AuthorModel authorModel = authorRepository.findById(updateRequest.getId()).get();
             authorModel.setName(updateRequest.getName());
-            authorModel.setUpdatedDate(localDateTime);
-            return AuthorMapper.INSTANCE.authorModelToAuthorDtoResponse(authorRepository.save(authorModel));
+            return AuthorMapper.INSTANCE.authorModelToAuthorDtoResponse(authorRepository.saveAndFlush(authorModel));
         } else {
             throw new NotFoundException(AUTHOR_NOT_EXIST);
         }

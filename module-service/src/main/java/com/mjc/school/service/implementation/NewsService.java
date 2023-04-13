@@ -3,17 +3,15 @@ package com.mjc.school.service.implementation;
 
 import com.mjc.school.repository.interfaces.NewsRepository;
 import com.mjc.school.repository.model.NewsModel;
+import com.mjc.school.service.BaseService;
 import com.mjc.school.service.annotation.Validate;
 import com.mjc.school.service.dto.NewsDtoRequest;
 import com.mjc.school.service.dto.NewsDtoResponse;
 import com.mjc.school.service.exception.NotFoundException;
-import com.mjc.school.service.BaseService;
 import com.mjc.school.service.interfaces.NewsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,9 +49,6 @@ NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
     @Validate(value = "checkNews")
     public NewsDtoResponse create(NewsDtoRequest createRequest) {
         NewsModel newsModel = NewsMapper.INSTANCE.newsDtoRequestToNews(createRequest);
-        LocalDateTime localDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-        newsModel.setCreateDate(localDateTime);
-        newsModel.setUpdateDate(localDateTime);
         NewsModel createdNewsModel = newsRepository.save(newsModel);
         return NewsMapper.INSTANCE.newsToNewsDtoResponse(createdNewsModel);
     }
@@ -63,9 +58,7 @@ NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
     public NewsDtoResponse update(NewsDtoRequest updateRequest) {
         if (newsRepository.existsById(updateRequest.getId())) {
             NewsModel newsModel = NewsMapper.INSTANCE.newsDtoRequestToNews(updateRequest);
-            LocalDateTime updatedDate = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
-            newsModel.setUpdateDate(updatedDate);
-            NewsModel updatedNewsModel = newsRepository.save(newsModel);
+            NewsModel updatedNewsModel = newsRepository.saveAndFlush(newsModel);
             return NewsMapper.INSTANCE.newsToNewsDtoResponse(updatedNewsModel);
         } else {
             throw new NotFoundException(NEWS_NOT_EXIST);

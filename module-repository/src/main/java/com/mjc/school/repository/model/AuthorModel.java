@@ -1,6 +1,8 @@
 package com.mjc.school.repository.model;
 
 import com.mjc.school.repository.BaseEntity;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -11,13 +13,15 @@ import java.util.Objects;
 public class AuthorModel implements BaseEntity<Long> {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "createdDate")
+    @Column(name = "createdDate", nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdDate;
-    @Column(name = "updatedDate")
+    @Column(name = "updatedDate", nullable = false)
+    @UpdateTimestamp
     private LocalDateTime updatedDate;
 
     public AuthorModel(Long id, String name, LocalDateTime createdDate, LocalDateTime updatedDate) {

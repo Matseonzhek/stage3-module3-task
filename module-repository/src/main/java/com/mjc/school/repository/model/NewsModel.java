@@ -1,6 +1,8 @@
 package com.mjc.school.repository.model;
 
 import com.mjc.school.repository.BaseEntity;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,15 +12,17 @@ import java.util.Objects;
 @Table(name = "news")
 public class NewsModel implements BaseEntity<Long> {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "title")
     private String title;
     @Column(name = "content")
     private String content;
-    @Column(name = "createdDate")
+    @Column(name = "createdDate", nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDateTime createDate;
-    @Column(name = "updatedDate")
+    @Column(name = "updatedDate", nullable = false)
+    @UpdateTimestamp
     private LocalDateTime updateDate;
     @Column(name = "authorId")
     private long authorId;
@@ -31,6 +35,9 @@ public class NewsModel implements BaseEntity<Long> {
         this.createDate = createDate;
         this.updateDate = updateDate;
         this.authorId = authorId;
+    }
+
+    public NewsModel() {
     }
 
     @Override
