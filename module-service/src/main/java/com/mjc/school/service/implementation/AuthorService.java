@@ -25,7 +25,6 @@ public class AuthorService implements BaseService<AuthorDtoRequest, AuthorDtoRes
         this.authorRepository = authorRepository;
     }
 
-    @Validate
     @Override
     public List<AuthorDtoResponse> readAll() {
         return AuthorMapper.INSTANCE.listAuthorToAuthorDtoResponse(authorRepository.findAll());

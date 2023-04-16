@@ -6,10 +6,11 @@ import com.mjc.school.service.dto.NewsDtoResponse;
 import com.mjc.school.service.implementation.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@Component
+@Controller
 public class NewsController implements BaseController<NewsDtoRequest, NewsDtoResponse, Long> {
 
     private final NewsService newsService;

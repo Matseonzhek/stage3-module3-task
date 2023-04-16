@@ -1,12 +1,9 @@
 package com.mjc.school.controller.operations;
 
-import com.mjc.school.controller.implementation.commands.*;
 import com.mjc.school.controller.BaseController;
+import com.mjc.school.controller.implementation.commands.*;
 import com.mjc.school.controller.interfaces.Command;
-import com.mjc.school.service.dto.AuthorDtoRequest;
-import com.mjc.school.service.dto.AuthorDtoResponse;
-import com.mjc.school.service.dto.NewsDtoRequest;
-import com.mjc.school.service.dto.NewsDtoResponse;
+import com.mjc.school.service.dto.*;
 
 import java.util.Scanner;
 
@@ -17,7 +14,7 @@ public enum Operations {
             return new NewsGetAll((BaseController<NewsDtoRequest, NewsDtoResponse, Long>) controller);
         }
     },
-    GET_NEWS_BY_ID(2, "Get news by id") {
+    GET_NEWS_BY_ID(2, "Get news by ID") {
         @Override
         public <T> Command getOperation(Scanner scanner, T controller) {
             return new NewsGetById(scanner, (BaseController<NewsDtoRequest, NewsDtoResponse, Long>) controller);
@@ -47,7 +44,7 @@ public enum Operations {
             return new AuthorGetAll((BaseController<AuthorDtoRequest, AuthorDtoResponse, Long>) controller);
         }
     },
-    GET_AUTHOR_BY_ID(7, "Get author by id") {
+    GET_AUTHOR_BY_ID(7, "Get author by ID") {
         @Override
         public <T> Command getOperation(Scanner scanner, T controller) {
             return new AuthorGetById(scanner, (BaseController<AuthorDtoRequest, AuthorDtoResponse, Long>) controller);
@@ -65,10 +62,40 @@ public enum Operations {
             return new AuthorUpdate(scanner, (BaseController<AuthorDtoRequest, AuthorDtoResponse, Long>) controller);
         }
     },
-    DELETE_AUTHOR(10, "Delete author"){
+    DELETE_AUTHOR(10, "Delete author") {
         @Override
         public <T> Command getOperation(Scanner scanner, T controller) {
             return new AuthorDelete(scanner, (BaseController<AuthorDtoRequest, AuthorDtoResponse, Long>) controller);
+        }
+    },
+    GET_ALL_TAG(11, "Get all tags") {
+        @Override
+        public <T> Command getOperation(Scanner scanner, T controller) {
+            return new TagGetAll((BaseController<TagDtoRequest, TagDtoResponse, Long>) controller);
+        }
+    },
+    GET_TAG_BY_ID(12, "Get tag by ID") {
+        @Override
+        public <T> Command getOperation(Scanner scanner, T controller) {
+            return new TagGetById(scanner, (BaseController<TagDtoRequest, TagDtoResponse, Long>) controller);
+        }
+    },
+    CREATE_TAG(13, "Create tag") {
+        @Override
+        public <T> Command getOperation(Scanner scanner, T controller) {
+            return new TagCreate(scanner, (BaseController<TagDtoRequest, TagDtoResponse, Long>) controller);
+        }
+    },
+    UPDATE_TAG(14, "Update tag") {
+        @Override
+        public <T> Command getOperation(Scanner scanner, T controller) {
+            return new TagUpdate(scanner, (BaseController<TagDtoRequest, TagDtoResponse, Long>) controller);
+        }
+    },
+    DELETE_TAG(15, "Delete tag") {
+        @Override
+        public <T> Command getOperation(Scanner scanner, T controller) {
+            return new TagDelete(scanner, (BaseController<TagDtoRequest, TagDtoResponse, Long>) controller);
         }
     },
     EXIT_COMMAND(0, "Exit") {

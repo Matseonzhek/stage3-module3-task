@@ -28,7 +28,6 @@ NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
         this.newsRepository = newsRepository;
     }
 
-    @Validate
     @Override
     public List<NewsDtoResponse> readAll() {
         return NewsMapper.INSTANCE.listNewsToNewsDtoResponse(newsRepository.findAll());
@@ -57,7 +56,10 @@ NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
     @Override
     public NewsDtoResponse update(NewsDtoRequest updateRequest) {
         if (newsRepository.existsById(updateRequest.getId())) {
-            NewsModel newsModel = NewsMapper.INSTANCE.newsDtoRequestToNews(updateRequest);
+            NewsModel newsModel = newsRepository.findById(updateRequest.getId()).get();
+            newsModel.setTitle(updateRequest.getTitle());
+            newsModel.setContent(updateRequest.getContent());
+            newsModel.setAuthorId(updateRequest.getAuthorId());
             NewsModel updatedNewsModel = newsRepository.saveAndFlush(newsModel);
             return NewsMapper.INSTANCE.newsToNewsDtoResponse(updatedNewsModel);
         } else {

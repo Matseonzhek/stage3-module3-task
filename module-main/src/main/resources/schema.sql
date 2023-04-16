@@ -1,6 +1,9 @@
-drop table news;
-drop table authors;
+drop table if exists news;
+drop table if exists authors;
+drop table if exists tag;
+drop sequence if exists tagSequence;
 
+create sequence tagSequence as integer start with 1;
 
 create table authors
 (
@@ -20,3 +23,10 @@ create table news
     authorId  integer,
     foreign key (authorId) references authors (id) on delete cascade
 );
+
+create table tag
+(
+    id serial  primary key ,
+    name varchar(15)
+);
+

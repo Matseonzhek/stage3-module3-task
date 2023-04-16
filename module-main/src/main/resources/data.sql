@@ -54,3 +54,11 @@ values
     ('COURT PROCEDURE -- CIVIL','This dedication to eradicating a killer disease.','2023-04-23T08:08:06','2023-04-25T19:46:48','2'),
     ('COURT PROCEDURE -- CRIMINAL','One patient recounting: "My doctor ordered a $6,000 treatment machine, to accelerate my healing. The cost for me to use this machine for the next month? Zero.','2023-05-09T03:32:06','2023-04-14T00:20:44','12'),
     ('DOMESTIC RELATIONS','A woman with rare, autoimmune disease, transverse myelitis, gets her bathroom redone so it is wheelchair accessible, all services and materials are donated by a local contractor company.','2023-05-09T20:51:52','2023-05-05T18:03:16','17');
+
+insert into tag (name)
+values
+    ('pixy'),
+    ('greateNews'),
+    ('goodNews'),
+    ('importantNews'),
+    ('southwest');

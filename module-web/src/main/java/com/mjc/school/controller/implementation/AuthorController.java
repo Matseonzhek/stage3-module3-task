@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-@Controller(value = "authorController")
+@Controller
 public class AuthorController implements BaseController<AuthorDtoRequest, AuthorDtoResponse, Long> {
 
     private final AuthorService authorService;

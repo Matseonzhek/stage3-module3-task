@@ -13,7 +13,7 @@ The recommended timeline for the whole module is 2 weeks.
   Instagram hashtags) as well.
 - Support retrieval of author by news id.
 - Support retrieval of tags by news id.
-- Support retrieval of news by tag names, tag ids, author name, title, content (all params are optional and can be used
+- Support retrieval of news by tagModel names, tagModel ids, author name, title, content (all params are optional and can be used
   in conjunction).
 
 #### Prerequisites
@@ -65,19 +65,19 @@ and have the following requirements:
 
 The system should expose CRUD operations for News, Author and Tag from the __main__ module in the root project:
 
-- [x] Create News - fill only title, content, authorId, tag ids (optional) and return created news.
+- [x] Create News - fill only title, content, authorId, tagModel ids (optional) and return created news.
 - [x] Create Author - fill only name and return created author.
-- [x] Create Tag - fill only name and return created tag.
+- [x] Create Tag - fill only name and return created tagModel.
 - [x] Get All News – return list of news.
 - [x] Get All Authors – return list of authors.
 - [x] Get All Tags – return list of tags.
 - [x] Get News by id – return news by provided id.
 - [x] Get Author by id – return author by provided id.
-- [x] Get Tag by id – return tag by provided id.
-- [x] Update News – update only title, content, authorId, tag ids (optional) by provided news id and return updated
+- [x] Get Tag by id – return tagModel by provided id.
+- [x] Update News – update only title, content, authorId, tagModel ids (optional) by provided news id and return updated
   news.
 - [x] Update Author – update only name by provided author id and return updated author.
-- [x] Update Tag – update only name by provided tag id and return updated tag.
+- [x] Update Tag – update only name by provided tagModel id and return updated tagModel.
 - [x] Delete News – delete news by provided news id and return boolean value.
 - [x] Delete Author – delete author by provided author id and return boolean value. When deleting author you could
   choose 2 options:
@@ -87,10 +87,10 @@ The system should expose CRUD operations for News, Author and Tag from the __mai
   Instead of explicitly maintaining data consistency (deleting related entities together with the parent one manually),
   you should pay attention to the correct description of relationships between entities using JPA
   annotations: `@OneToOne`, `@OneToMany`, `@ManyToMany` or use foreign key constraints in sql scripts.
-- [x] Delete Tag – delete tag by provided tag id and return boolean value.
+- [x] Delete Tag – delete tagModel by provided tagModel id and return boolean value.
 - [x] Get Author by news id – return author by provided news id.
 - [x] Get Tags by news id – return tags by provided news id.
-- [x] Get News by tag names, tag ids, author name, title, content (all params are optional and can be used in
+- [x] Get News by tagModel names, tagModel ids, author name, title, content (all params are optional and can be used in
   conjunction) – return news by provided params.
 
 As well as in the **Spring Core** module all returned and received data should be
