@@ -1,64 +1,66 @@
-insert into authors (name, createddate, updateddate)
-values
-    ('Agatha Christie','2023-04-25T15:34:24','2023-04-23T01:11:05'),
-    ('Danielle Steel','2023-05-04T03:31:19','2023-04-24T04:14:09'),
-    ('Harold Robbins','2023-05-06T21:40:55','2023-04-23T06:22:14'),
-    ('Georges Simenon','2023-04-18T06:39:58','2023-05-08T22:25:13'),
-    ('Enid Blyton','2023-05-08T03:30:19','2023-05-07T07:00:18'),
-    ('Sidney Sheldon','2023-04-20T11:27:07','2023-04-22T19:02:14'),
-    ('J. K. Rowling','2023-04-30T14:03:16','2023-05-05T08:09:59'),
-    ('Gilbert Patten','2023-04-15T22:04:28','2023-05-11T13:06:40'),
-    ('Dr. Seuss','2023-04-26T15:56:48','2023-04-14T03:29:27'),
-    ('Eiichiro Oda','2023-04-25T15:16:38','2023-04-19T21:30:57'),
-    ('Akira Toriyama','2023-04-30T00:22:01','2023-04-21T10:05:22'),
-    ('Leo Tolstoy','2023-05-08T19:18:50','2023-04-16T00:10:39'),
-    ('Corín Tellado','2023-04-30T21:18:18','2023-05-11T16:37:09'),
-    ('Dean Koontz','2023-04-19T04:42:04','2023-05-10T06:03:33'),
-    ('Jackie Collins','2023-04-21T16:35:25','2023-04-16T00:35:03'),
-    ('Horatio Alger','2023-04-24T20:35:08','2023-04-30T12:25:05'),
-    ('Nora Roberts','2023-04-16T19:55:50','2023-05-07T12:01:15'),
-    ('R. L. Stine','2023-04-20T21:55:13','2023-04-17T18:53:54'),
-    ('Stephen King','2023-04-29T01:14:30','2023-04-20T22:50:19'),
-    ('Paulo Coelho','2023-04-27T19:26:12','2023-04-23T21:35:26'),
-    ('Jirō Akagawa','2023-05-05T21:39:31','2023-04-22T09:09:25'),
-    ('Jeffrey Archer','2023-04-22T07:33:52','2023-05-09T21:43:44'),
-    ('Louis LAmour','2023-04-27T08:21:49','2023-05-02T08:08'),
-    ('René Goscinny','2023-04-27T20:36:51','2023-05-07T15:55:38'),
-    ('Edgar Wallace','2023-04-17T14:55:07','2023-04-14T12:21:51'),
-    ('Janet Dailey','2023-05-03T13:55:25','2023-04-17T11:07:19');
+insert into authors (name, createddate, updateddate) values('Agatha Christie','2023-04-22T08:56:05','2023-05-05T23:03:10');
+insert into authors (name, createddate, updateddate) values('Danielle Steel','2023-05-07T01:13:23','2023-05-04T18:56:24');
+insert into authors (name, createddate, updateddate) values('Harold Robbins','2023-05-08T20:45:16','2023-05-07T09:34:45');
+insert into authors (name, createddate, updateddate) values('Georges Simenon','2023-05-09T11:19:06','2023-05-06T11:43:59');
+insert into authors (name, createddate, updateddate) values('Enid Blyton','2023-04-18T18:56:52','2023-04-17T22:19:32');
+insert into authors (name, createddate, updateddate) values('Sidney Sheldon','2023-05-05T20:47:09','2023-05-16T15:38:41');
+insert into authors (name, createddate, updateddate) values('J. K. Rowling','2023-05-09T19:17:59','2023-04-18T01:00:25');
+insert into authors (name, createddate, updateddate) values('Gilbert Patten','2023-05-07T15:29:14','2023-05-16T18:15:32');
+insert into authors (name, createddate, updateddate) values('Dr. Seuss','2023-04-22T11:28:52','2023-05-05T19:53:18');
+insert into authors (name, createddate, updateddate) values('Eiichiro Oda','2023-04-27T04:54:12','2023-05-04T14:05:19');
+insert into authors (name, createddate, updateddate) values('Akira Toriyama','2023-04-17T11:35:01','2023-05-06T00:22:30');
+insert into authors (name, createddate, updateddate) values('Leo Tolstoy','2023-04-22T16:55:50','2023-05-07T06:55:48');
+insert into authors (name, createddate, updateddate) values('Corín Tellado','2023-05-04T22:58:13','2023-04-19T17:28:59');
+insert into authors (name, createddate, updateddate) values('Dean Koontz','2023-04-25T12:47:14','2023-05-04T12:23:30');
+insert into authors (name, createddate, updateddate) values('Jackie Collins','2023-04-17T08:20:55','2023-04-22T10:39:09');
+insert into authors (name, createddate, updateddate) values('Horatio Alger','2023-04-19T03:56:34','2023-04-23T02:28:35');
+insert into authors (name, createddate, updateddate) values('Nora Roberts','2023-04-23T09:24:56','2023-04-17T13:00:04');
+insert into authors (name, createddate, updateddate) values('R. L. Stine','2023-05-15T16:50:06','2023-04-22T04:19:01');
+insert into authors (name, createddate, updateddate) values('Stephen King','2023-04-19T13:05:07','2023-04-27T20:31:17');
+insert into authors (name, createddate, updateddate) values('Paulo Coelho','2023-04-21T12:50:19','2023-05-04T19:28:08');
+insert into authors (name, createddate, updateddate) values('Jirō Akagawa','2023-05-16T07:31:51','2023-04-19T02:09:21');
+insert into authors (name, createddate, updateddate) values('Jeffrey Archer','2023-05-14T11:19','2023-04-29T18:13:29');
+insert into authors (name, createddate, updateddate) values('Louis LAmour','2023-04-22T08:07:43','2023-04-23T17:34:07');
+insert into authors (name, createddate, updateddate) values('René Goscinny','2023-05-10T23:11:03','2023-04-24T20:29:19');
+insert into authors (name, createddate, updateddate) values('Edgar Wallace','2023-04-24T03:07:28','2023-04-19T12:04:26');
+insert into authors (name, createddate, updateddate) values('Janet Dailey','2023-04-17T18:42:32','2023-05-01T03:46:38');
 
-insert into news (title, content, createddate, updateddate, authorId)
-values
-    ('AERONAUTICS','A woman with rare, autoimmune disease, transverse myelitis, gets her bathroom redone so it is wheelchair accessible, all services and materials are donated by a local contractor company.','2023-04-27T19:40:24','2023-05-08T13:17:20','13'),
-    ('TRUSTS','The white woman standing her ground, defending an elderly black man.','2023-04-24T06:48:36','2023-05-08T08:05:27','12'),
-    ('EXECUTIVE','One mans drastic 400 pound weight loss spurred on by supportive gym pals.','2023-05-02T17:40:49','2023-04-30T11:30:26','3'),
-    ('EXECUTIVE','Swipe right for peace-a dating app for conflict resolution.','2023-05-11T09:36:24','2023-05-02T19:40:32','18'),
-    ('PROBATE CODE','This dedication to eradicating a killer disease.','2023-04-21T10:26:34','2023-04-23T14:49:52','7'),
-    ('COMPENSATION','The worst flood in India in 100 years brings Twitter to the rescue.','2023-05-02T02:16:38','2023-04-29T10:32:25','2'),
-    ('MAINE BUSINESS CORPORATION ACT','A landlords heartwarming Christmas present.','2023-04-25T05:46:50','2023-04-25T01:11:10','21'),
-    ('CORPORATIONS','Nineteen of the very best uplifting photos of the day.','2023-04-24T17:15:34','2023-05-10T02:02:34','25'),
-    ('MAINE CRIMINAL CODE','A landlords heartwarming Christmas present.','2023-05-10T11:22:56','2023-05-10T11:42:53','8'),
-    ('MAINE BUSINESS CORPORATION ACT','The church that tipped a pizza guy who is in recovery $700. Warning, the tears will flow.','2023-05-01T12:05:01','2023-04-13T05:01:21','25'),
-    ('CORPORATIONS','One patient recounting: "My doctor ordered a $6,000 treatment machine, to accelerate my healing. The cost for me to use this machine for the next month? Zero.','2023-04-27T12:16:20','2023-04-30T16:54:56','15'),
-    ('COURT PROCEDURE -- EVIDENCE','A man with an intestinal tumor offering unconditional love through Craigslist ads, and sparking a chain of love.','2023-04-25T07:26:30','2023-05-01T22:18:03','13'),
-    ('EXECUTIVE','This MN refugee center fielding 4-5 times the needed amount of people to help.','2023-04-13T13:02:47','2023-04-16T23:09:10','5'),
-    ('UNIFORM COMMERCIAL CODE','The white woman standing her ground, defending an elderly black man.','2023-04-29T18:51:48','2023-04-26T10:07:47','7'),
-    ('AMUSEMENTS AND SPORTS','San Franciscos mobile shower truck for the homeless.','2023-05-08T12:13:12','2023-05-01T04:13:59','15'),
-    ('MAINE BUSINESS CORPORATION ACT','Washington High School students afforded discretion as their food and hygiene needs are met.','2023-05-05T16:09:24','2023-05-02T12:11:04','24'),
-    ('TRUSTS','One patient recounting: "My doctor ordered a $6,000 treatment machine, to accelerate my healing. The cost for me to use this machine for the next month? Zero.','2023-05-07T13:25:01','2023-05-08T01:02:12','6'),
-    ('LEGISLATURE','Swipe right for peace-a dating app for conflict resolution.','2023-05-06T10:29:08','2023-05-11T20:28:29','11'),
-    ('MAINE CRIMINAL CODE','The worst flood in India in 100 years brings Twitter to the rescue.','2023-04-25T04:22:43','2023-04-25T22:39:52','25'),
-    ('EXECUTIVE','This little boy giving his sister bone marrow, even though he believed it would kill him.','2023-05-05T15:42:10','2023-04-20T04:00:12','12'),
-    ('COURT PROCEDURE -- CIVIL','One patient recounting: "My doctor ordered a $6,000 treatment machine, to accelerate my healing. The cost for me to use this machine for the next month? Zero.','2023-04-20T15:24:19','2023-05-02T09:23:29','19'),
-    ('MAINE BUSINESS CORPORATION ACT','San Franciscos mobile shower truck for the homeless.','2023-04-19T14:17','2023-04-27T00:42:08','17'),
-    ('COURT PROCEDURE -- CIVIL','This dedication to eradicating a killer disease.','2023-04-23T08:08:06','2023-04-25T19:46:48','2'),
-    ('COURT PROCEDURE -- CRIMINAL','One patient recounting: "My doctor ordered a $6,000 treatment machine, to accelerate my healing. The cost for me to use this machine for the next month? Zero.','2023-05-09T03:32:06','2023-04-14T00:20:44','12'),
-    ('DOMESTIC RELATIONS','A woman with rare, autoimmune disease, transverse myelitis, gets her bathroom redone so it is wheelchair accessible, all services and materials are donated by a local contractor company.','2023-05-09T20:51:52','2023-05-05T18:03:16','17');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('DOMESTIC RELATIONS','This little boy giving his sister bone marrow, even though he believed it would kill him.','2023-04-24T05:05:35','2023-04-27T08:56:20','18');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('COURT PROCEDURE -- CIVIL','Rosa Parks has been honored with a reserved front seat on Texas buses.','2023-04-24T02:10:48','2023-05-05T02:52:26','20');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('AGRICULTURE AND ANIMALS','Rosa Parks has been honored with a reserved front seat on Texas buses.','2023-05-02T20:45:56','2023-04-26T21:35:49','7');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('MAINE CRIMINAL CODE','San Franciscos mobile shower truck for the homeless.','2023-05-07T07:50:21','2023-04-27T05:38:17','22');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('MAINE BUSINESS CORPORATION ACT','A woman with rare, autoimmune disease, transverse myelitis, gets her bathroom redone so it is wheelchair accessible, all services and materials are donated by a local contractor company.','2023-05-10T04:14:57','2023-04-18T05:17:21','1');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('CRIMES','Nineteen of the very best uplifting photos of the day.','2023-05-12T22:48:58','2023-04-21T07:41:35','7');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('AERONAUTICS','The church that tipped a pizza guy who is in recovery $700. Warning, the tears will flow.','2023-05-09T00:40:17','2023-05-15T20:57:43','10');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('PROBATE CODE','A man fulfilling a young girls wish for a new toy from Santa, described in a letter that literally dropped from the sky.','2023-04-22T21:54:06','2023-04-24T15:26:33','7');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('MAINE CRIMINAL CODE','A secret decoration mission that helped this widow rediscover her holiday spirit.','2023-04-19T11:15:57','2023-04-23T15:02:42','20');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('MAINE CONSUMER CREDIT CODE','Washington High School students afforded discretion as their food and hygiene needs are met.','2023-05-06T08:37:02','2023-04-22T07:39:26','22');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('COURT PROCEDURE -- EVIDENCE','The white woman standing her ground, defending an elderly black man.','2023-05-12T14:37:57','2023-05-15T05:16:27','14');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('CRIMES','This morality Christmas ad with the joyful twist, which will make your eyelids sweaty.','2023-05-04T02:19:47','2023-04-18T07:52:23','1');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('MAINE BUSINESS CORPORATION ACT','This dedication to eradicating a killer disease.','2023-05-04T11:13:14','2023-05-10T00:30:05','18');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('COMMERCE AND TRADE','The worst flood in India in 100 years brings Twitter to the rescue.','2023-04-23T22:52:58','2023-05-14T11:32:04','9');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('DOMESTIC RELATIONS','Ex-Bengal, Devon Still, whose social media posts about his daughters stage-four neuroblastoma cancer went viral, announcing his baby girls remission.','2023-04-20T01:33:11','2023-04-20T15:36:44','25');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('COURT PROCEDURE -- CRIMINAL','An inspiring couple recreating their wedding photo 70 years later.','2023-04-21T08:18:04','2023-04-23T09:26:56','14');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('MAINE BUSINESS CORPORATION ACT','One patient recounting: "My doctor ordered a $6,000 treatment machine, to accelerate my healing. The cost for me to use this machine for the next month? Zero.','2023-05-16T13:52:49','2023-05-01T19:36:13','16');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('AERONAUTICS','Monsanto will close three of its facilities. We are making a difference!','2023-05-10T12:45:33','2023-04-20T02:59:26','20');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('MAINE CONSUMER CREDIT CODE','The white woman standing her ground, defending an elderly black man.','2023-05-01T08:14:38','2023-04-25T20:05:26','7');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('COMMERCE AND TRADE','This dedication to eradicating a killer disease.','2023-05-11T17:02:11','2023-04-19T03:51','23');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('MAINE CRIMINAL CODE','San Franciscos mobile shower truck for the homeless.','2023-04-22T03:57:16','2023-05-02T16:25:33','4');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('AGRICULTURE AND ANIMALS','The reaction of a dog rescued by a firefighter. in the words, of GMP Lead Editor, Shawn Henfling, "Dogs are my favorite people."','2023-05-02T01:13:13','2023-04-27T15:36:13','1');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('MAINE BUSINESS CORPORATION ACT','One mans drastic 400 pound weight loss spurred on by supportive gym pals.','2023-05-01T11:01:44','2023-04-27T23:33:11','13');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('GENERAL PROVISIONS','Monsanto will close three of its facilities. We are making a difference!','2023-05-16T01:26:29','2023-04-22T12:22:35','6');
+insert into news (title, content, createddate, updateddate, authormodel_id) values('PROBATE CODE','A man with an intestinal tumor offering unconditional love through Craigslist ads, and sparking a chain of love.','2023-04-23T18:49:09','2023-05-05T14:15:44','11');
 
-insert into tag (name)
-values
-    ('pixy'),
-    ('greateNews'),
-    ('goodNews'),
-    ('importantNews'),
-    ('southwest');
+insert into tag (name) values ('pixy');
+insert into tag (name) values ('greateNews');
+insert into tag (name) values ('goodNews');
+insert into tag (name) values ('importantNews');
+insert into tag (name) values ('southwest');
+
+insert into news_tag values (1, 2);
+insert into news_tag values (1, 3);
+insert into news_tag values (2, 5);
+insert into news_tag values (2, 1);
+insert into news_tag values (3, 1);
+insert into news_tag values (3,2);
+insert into news_tag values (3,5);

@@ -1,10 +1,8 @@
 package com.mjc.school.controller.implementation.commands;
 
 import com.mjc.school.controller.constants.Constants;
-import com.mjc.school.controller.BaseController;
+import com.mjc.school.controller.implementation.NewsController;
 import com.mjc.school.controller.interfaces.Command;
-import com.mjc.school.service.dto.NewsDtoRequest;
-import com.mjc.school.service.dto.NewsDtoResponse;
 
 import java.util.Scanner;
 
@@ -12,7 +10,8 @@ import java.util.Scanner;
 public class NewsGetById extends NewsBaseCommand implements Command {
 
     private final Scanner scanner;
-    public NewsGetById(Scanner scanner,BaseController<NewsDtoRequest, NewsDtoResponse, Long> newsController) {
+
+    public NewsGetById(Scanner scanner, NewsController newsController) {
         super(newsController);
         this.scanner = scanner;
     }

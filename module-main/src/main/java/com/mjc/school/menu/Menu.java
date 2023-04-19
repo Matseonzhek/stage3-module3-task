@@ -23,7 +23,6 @@ public class Menu {
     }
 
 
-
     public void run() {
         boolean isRunning = true;
         Scanner scanner = new Scanner(System.in);

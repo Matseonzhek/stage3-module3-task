@@ -6,12 +6,15 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "authors")
 public class AuthorModel implements BaseEntity<Long> {
 
+    @OneToMany(mappedBy = "authorModel", cascade = CascadeType.ALL, orphanRemoval = true)
+    public List<NewsModel> newsList;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -66,6 +69,27 @@ public class AuthorModel implements BaseEntity<Long> {
 
     public void setUpdatedDate(LocalDateTime updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public List<NewsModel> getNewsList() {
+        return newsList;
+    }
+
+    public void setNewsList(List<NewsModel> newsList) {
+        this.newsList = newsList;
+    }
+
+    public void addNews(NewsModel newsModel) {
+        newsList.add(newsModel);
+        newsModel.setAuthorModel(this);
+    }
+
+    public void removeNews(NewsModel newsModel) {
+        newsList.remove(newsModel);
+    }
+
+    public void addTag(TagModel tagModel) {
+
     }
 
     @Override

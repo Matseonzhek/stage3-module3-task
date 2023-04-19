@@ -1,10 +1,9 @@
 package com.mjc.school.controller.implementation.commands;
 
 import com.mjc.school.controller.constants.Constants;
-import com.mjc.school.controller.BaseController;
+import com.mjc.school.controller.implementation.NewsController;
 import com.mjc.school.controller.interfaces.Command;
 import com.mjc.school.service.dto.NewsDtoRequest;
-import com.mjc.school.service.dto.NewsDtoResponse;
 
 import java.util.Scanner;
 
@@ -12,7 +11,7 @@ public class NewsUpdate extends NewsBaseCommand implements Command {
 
     private final Scanner scanner;
 
-    public NewsUpdate(Scanner scanner, BaseController<NewsDtoRequest, NewsDtoResponse, Long> newsController) {
+    public NewsUpdate(Scanner scanner, NewsController newsController) {
         super(newsController);
         this.scanner = scanner;
     }
@@ -26,8 +25,10 @@ public class NewsUpdate extends NewsBaseCommand implements Command {
         System.out.println(Constants.NEWS_CONTENT);
         String content = scanner.nextLine();
         System.out.println(Constants.NEWS_AUTHOR_ID);
-        String authorId = scanner.nextLine();
-        NewsDtoRequest newsDtoRequest = new NewsDtoRequest(Long.parseLong(newsId), title, content, Long.parseLong(authorId));
+        long authorId = Long.parseLong(scanner.nextLine());
+        System.out.println(Constants.NEWS_TAG_ID);
+        long tagId = Long.parseLong(scanner.nextLine());
+        NewsDtoRequest newsDtoRequest = new NewsDtoRequest(Long.parseLong(newsId), title, content, authorId, tagId);
         System.out.println(newsController.update(newsDtoRequest));
         return true;
     }

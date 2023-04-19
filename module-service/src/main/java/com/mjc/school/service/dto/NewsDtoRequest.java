@@ -9,16 +9,19 @@ public class NewsDtoRequest {
     private String title;
     private String content;
     private long authorId;
+    private long tagId;
 
     public NewsDtoRequest() {
     }
 
-    public NewsDtoRequest(Long id, String title, String content, long authorId) {
+    public NewsDtoRequest(Long id, String title, String content, long authorId, long tagId) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.authorId = authorId;
+        this.tagId = tagId;
     }
+
     public Long getId() {
         return id;
     }
@@ -51,6 +54,14 @@ public class NewsDtoRequest {
         this.authorId = authorId;
     }
 
+    public long getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(long tagId) {
+        this.tagId = tagId;
+    }
+
     @Override
     public String toString() {
         return "NewsDtoRequest{" +
@@ -58,6 +69,7 @@ public class NewsDtoRequest {
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", authorId=" + authorId +
+                ", tagId=" + tagId +
                 '}';
     }
 }

@@ -5,12 +5,21 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "news")
 public class NewsModel implements BaseEntity<Long> {
+    @ManyToOne
+    private AuthorModel authorModel;
+
+    @OneToMany(mappedBy = "newsModel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<NewsTagModel> taggedNews = new ArrayList<>();
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,17 +33,14 @@ public class NewsModel implements BaseEntity<Long> {
     @Column(name = "updatedDate", nullable = false)
     @UpdateTimestamp
     private LocalDateTime updateDate;
-    @Column(name = "authorId")
-    private long authorId;
 
 
-    public NewsModel(Long id, String title, String content, LocalDateTime createDate, LocalDateTime updateDate, long authorId) {
+    public NewsModel(Long id, String title, String content, LocalDateTime createDate, LocalDateTime updateDate) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createDate = createDate;
         this.updateDate = updateDate;
-        this.authorId = authorId;
     }
 
     public NewsModel() {
@@ -82,12 +88,34 @@ public class NewsModel implements BaseEntity<Long> {
         this.updateDate = updateDate;
     }
 
-    public long getAuthorId() {
-        return authorId;
+    public AuthorModel getAuthorModel() {
+        return authorModel;
     }
 
-    public void setAuthorId(long authorId) {
-        this.authorId = authorId;
+    public void setAuthorModel(AuthorModel authorModel) {
+        this.authorModel = authorModel;
+    }
+
+    public List<NewsTagModel> getTaggedNews() {
+        return taggedNews;
+    }
+
+    public void setTaggedNews(List<NewsTagModel> taggedNews) {
+        this.taggedNews = taggedNews;
+    }
+
+    @Transactional
+    public void addTag(TagModel tagModel) {
+        NewsTagModel newsTagModel = new NewsTagModel(this, tagModel);
+        taggedNews.add(newsTagModel);
+        tagModel.getTags().add(newsTagModel);
+    }
+
+
+    public void removeTag(TagModel tagModel) {
+        NewsTagModel newsTagModel = new NewsTagModel(this, tagModel);
+        tagModel.getTags().remove(newsTagModel);
+        taggedNews.remove(newsTagModel);
     }
 
     @Override
@@ -95,23 +123,11 @@ public class NewsModel implements BaseEntity<Long> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NewsModel newsModel = (NewsModel) o;
-        return authorId == newsModel.authorId && id.equals(newsModel.id) && title.equals(newsModel.title) && content.equals(newsModel.content) && createDate.equals(newsModel.createDate) && updateDate.equals(newsModel.updateDate);
+        return authorModel.equals(newsModel.authorModel) && id.equals(newsModel.id) && title.equals(newsModel.title) && content.equals(newsModel.content) && createDate.equals(newsModel.createDate) && updateDate.equals(newsModel.updateDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, content, createDate, updateDate, authorId);
-    }
-
-    @Override
-    public String toString() {
-        return "NewsModel{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", createDate=" + createDate +
-                ", lastUpdateDate=" + updateDate +
-                ", authorId=" + authorId +
-                '}';
+        return Objects.hash(authorModel, id, title, content, createDate, updateDate);
     }
 }

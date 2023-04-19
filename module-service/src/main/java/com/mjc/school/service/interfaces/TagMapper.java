@@ -4,6 +4,7 @@ import com.mjc.school.repository.model.TagModel;
 import com.mjc.school.service.dto.TagDtoRequest;
 import com.mjc.school.service.dto.TagDtoResponse;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -18,7 +19,8 @@ public interface TagMapper {
 
     TagDtoResponse tagToTagDtoResponse(TagModel tagModel);
 
-    TagModel tagDtoRequestToTag (TagDtoRequest tagDtoRequest);
+    @Mapping(target = "tags", ignore = true)
+    TagModel tagDtoRequestToTag(TagDtoRequest tagDtoRequest);
 
-    List<TagDtoResponse> listTagToTagDtoResponse (List<TagModel> tagModels);
+    List<TagDtoResponse> listTagToTagDtoResponse(List<TagModel> tagModels);
 }

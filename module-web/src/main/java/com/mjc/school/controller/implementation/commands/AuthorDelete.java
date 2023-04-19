@@ -1,10 +1,8 @@
 package com.mjc.school.controller.implementation.commands;
 
 import com.mjc.school.controller.constants.Constants;
-import com.mjc.school.controller.BaseController;
+import com.mjc.school.controller.implementation.AuthorController;
 import com.mjc.school.controller.interfaces.Command;
-import com.mjc.school.service.dto.AuthorDtoRequest;
-import com.mjc.school.service.dto.AuthorDtoResponse;
 
 import java.util.Scanner;
 
@@ -13,7 +11,7 @@ public class AuthorDelete extends AuthorBaseCommand implements Command {
 
     private final Scanner scanner;
 
-    public AuthorDelete(Scanner scanner, BaseController<AuthorDtoRequest, AuthorDtoResponse, Long> authorController) {
+    public AuthorDelete(Scanner scanner, AuthorController authorController) {
         super(authorController);
         this.scanner = scanner;
     }

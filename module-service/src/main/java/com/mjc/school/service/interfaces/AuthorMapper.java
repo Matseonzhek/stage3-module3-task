@@ -16,8 +16,10 @@ public interface AuthorMapper {
 
     @Mapping(target = "createdDate", ignore = true)
     @Mapping(target = "updatedDate", ignore = true)
+    @Mapping(target = "newsList", ignore = true)
     AuthorModel authorDtoRequestToAuthorModel(AuthorDtoRequest authorDtoRequest);
 
+    @Mapping(target = "newsList", ignore = true)
     AuthorModel authorDtoResponseToAuthorModel(AuthorDtoResponse authorDtoResponse);
 
     AuthorDtoResponse authorModelToAuthorDtoResponse(AuthorModel authorModel);

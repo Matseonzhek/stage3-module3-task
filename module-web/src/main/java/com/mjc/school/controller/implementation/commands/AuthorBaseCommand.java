@@ -1,14 +1,12 @@
 package com.mjc.school.controller.implementation.commands;
 
-import com.mjc.school.controller.BaseController;
-import com.mjc.school.service.dto.AuthorDtoRequest;
-import com.mjc.school.service.dto.AuthorDtoResponse;
+import com.mjc.school.controller.implementation.AuthorController;
 
 public abstract class AuthorBaseCommand {
 
-    protected final BaseController<AuthorDtoRequest, AuthorDtoResponse, Long> authorController;
+    protected final AuthorController authorController;
 
-    protected AuthorBaseCommand(BaseController<AuthorDtoRequest, AuthorDtoResponse, Long> authorController) {
+    protected AuthorBaseCommand(AuthorController authorController) {
         this.authorController = authorController;
     }
 }

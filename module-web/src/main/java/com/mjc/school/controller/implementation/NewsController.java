@@ -1,11 +1,12 @@
 package com.mjc.school.controller.implementation;
 
 import com.mjc.school.controller.BaseController;
+import com.mjc.school.service.dto.AuthorDtoResponse;
 import com.mjc.school.service.dto.NewsDtoRequest;
 import com.mjc.school.service.dto.NewsDtoResponse;
+import com.mjc.school.service.dto.TagDtoResponse;
 import com.mjc.school.service.implementation.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 public class NewsController implements BaseController<NewsDtoRequest, NewsDtoResponse, Long> {
 
     private final NewsService newsService;
+
 
     @Autowired
     public NewsController(NewsService newsService) {
@@ -43,5 +45,13 @@ public class NewsController implements BaseController<NewsDtoRequest, NewsDtoRes
     @Override
     public boolean deleteById(Long id) {
         return newsService.deleteById(id);
+    }
+
+    public AuthorDtoResponse getAuthorByNewsId(Long id) {
+        return newsService.getAuthorByNewsId(id);
+    }
+
+    public List<TagDtoResponse> getTagByNewsId(Long id) {
+        return newsService.getTagByNewsId(id);
     }
 }

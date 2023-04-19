@@ -8,7 +8,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
-import java.util.Optional;
 
 @Mapper
 public interface NewsMapper {
@@ -17,13 +16,15 @@ public interface NewsMapper {
 
     NewsDtoResponse newsToNewsDtoResponse(NewsModel newsModel);
 
+    @Mapping(target = "authorId", ignore = true)
+    @Mapping(target = "tagId", ignore = true)
     NewsDtoRequest newsToNewsDtoRequest(NewsModel newsModel);
 
     @Mapping(target = "createDate", ignore = true)
     @Mapping(target = "updateDate", ignore = true)
+    @Mapping(target = "authorModel", ignore = true)
+    @Mapping(target = "taggedNews", ignore = true)
     NewsModel newsDtoRequestToNews(NewsDtoRequest newsDtoRequest);
-
-    NewsModel newsDtoResponseToNews(NewsDtoResponse newsDtoResponse);
 
     List<NewsDtoResponse> listNewsToNewsDtoResponse(List<NewsModel> newsModelList);
 

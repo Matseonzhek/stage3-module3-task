@@ -11,18 +11,16 @@ public class NewsDtoResponse {
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
-    private long authorId;
 
     public NewsDtoResponse() {
     }
 
-    public NewsDtoResponse(Long id, String title, String content, LocalDateTime createDate, LocalDateTime updateDate, long authorId) {
+    public NewsDtoResponse(Long id, String title, String content, LocalDateTime createDate, LocalDateTime updateDate) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createDate = createDate;
         this.updateDate = updateDate;
-        this.authorId = authorId;
     }
 
     public Long getId() {
@@ -65,14 +63,6 @@ public class NewsDtoResponse {
         this.updateDate = updateDate;
     }
 
-    public long getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(long authorId) {
-        this.authorId = authorId;
-    }
-
     @Override
     public String toString() {
         return "NewsDtoResponse{" +
@@ -81,7 +71,6 @@ public class NewsDtoResponse {
                 ", content='" + content + '\'' +
                 ", createDate=" + createDate +
                 ", updateDate=" + updateDate +
-                ", authorId=" + authorId +
                 '}';
     }
 }
