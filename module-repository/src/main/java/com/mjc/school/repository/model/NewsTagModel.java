@@ -1,6 +1,9 @@
 package com.mjc.school.repository.model;
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -11,9 +14,11 @@ public class NewsTagModel implements Serializable {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private NewsModel newsModel;
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private TagModel tagModel;
 
     public NewsTagModel() {

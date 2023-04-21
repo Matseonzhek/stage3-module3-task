@@ -1,72 +1,73 @@
-//package com.mjc.school.repository.implementation;
-//
-//import com.mjc.school.repository.BaseRepository;
-//import com.mjc.school.repository.model.AuthorModel;
-//
-//import java.util.Comparator;
-//import java.util.List;
-//import java.util.Optional;
-//
-////@Repository
-//public class AuthorRepository implements BaseRepository<AuthorModel, Long> {
-//
-//
-//    private final DataSourceCreation dataSource;
-//
-////    @Autowired
-//    public AuthorRepository(DataSourceCreation dataSource) {
-//        this.dataSource = DataSourceCreation.getDataSource();
-//    }
-//
-//    @Override
-//    public List<AuthorModel> readAll() {
-//        return dataSource.getAuthorModelList();
-//    }
-//
-//    @Override
-//    public Optional<AuthorModel> readById(Long id) {
-//        return Optional.of(dataSource.getAuthorModelList()
-//                .stream()
-//                .filter(authorModel -> authorModel.getId().equals(id))
-//                .findFirst()
-//                .get());
-//    }
-//
-//    @Override
-//    public AuthorModel create(AuthorModel entity) {
-//        List<AuthorModel> authorModelList = dataSource.getAuthorModelList();
-//        authorModelList.sort(Comparator.comparing(AuthorModel::getId));
-//        if (!authorModelList.isEmpty()) {
-//            entity.setId(authorModelList.get(authorModelList.size() - 1).getId() + 1);
-//        } else {
-//            entity.setId(1L);
-//        }
-//        authorModelList.add(entity);
-//        return entity;
-//    }
-//
-//    @Override
-//    public AuthorModel update(AuthorModel entity) {
-//        long id = entity.getId();
-//        Optional<AuthorModel> updatedAuthorModel = readById(id);
-//        if (updatedAuthorModel.isPresent()) {
-//            updatedAuthorModel.get().setName(entity.getName());
-//            updatedAuthorModel.get().setUpdatedDate(entity.getUpdatedDate());
-//            return updatedAuthorModel.get();
-//        }
-//        return null;
-//    }
-//
-//    @Override
-//    public boolean deleteById(Long id) {
-//        return dataSource.getAuthorModelList().remove(readById(id).get());
-//    }
-//
-//    @Override
-//    public boolean existById(Long id) {
-//        return dataSource
-//                .getAuthorModelList()
-//                .stream()
-//                .anyMatch(authorModel -> authorModel.getId().equals(id));
-//    }
-//}
+package com.mjc.school.repository.implementation;
+
+import com.mjc.school.repository.BaseRepository;
+import com.mjc.school.repository.model.AuthorModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public class AuthorRepository implements BaseRepository<AuthorModel, Long> {
+
+
+    private final EntityManager entityManager;
+
+    @Autowired
+    public AuthorRepository(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    @Override
+    public List<AuthorModel> readAll() {
+        String jpql = "select authors from AuthorModel authors order by authors.id";
+        TypedQuery<AuthorModel> query=entityManager.createQuery(jpql,AuthorModel.class);
+        return query.getResultList();
+    }
+
+    @Override
+    public Optional<AuthorModel> readById(Long id) {
+        AuthorModel authorModel = entityManager.find(AuthorModel.class, id);
+        return Optional.of(authorModel);
+    }
+
+    @Transactional
+    @Override
+    public AuthorModel create(AuthorModel entity) {
+        entityManager.persist(entity);
+        return entity;
+    }
+
+    @Transactional
+    @Override
+    public AuthorModel update(AuthorModel entity) {
+        long id = entity.getId();
+        if (existById(id)) {
+            AuthorModel authorModel = readById(id).get();
+            authorModel.setName(entity.getName());
+            entityManager.merge(authorModel);
+            return authorModel;
+        }
+        return null;
+    }
+
+    @Transactional
+    @Override
+    public boolean deleteById(Long id) {
+        if (existById(id)) {
+            AuthorModel authorModel = readById(id).get();
+            entityManager.remove(authorModel);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean existById(Long id) {
+        return readById(id).isPresent();
+    }
+}

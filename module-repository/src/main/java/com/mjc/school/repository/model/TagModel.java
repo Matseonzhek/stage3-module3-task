@@ -1,5 +1,7 @@
 package com.mjc.school.repository.model;
 
+import com.mjc.school.repository.BaseEntity;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tag")
-public class TagModel {
+public class TagModel implements BaseEntity<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

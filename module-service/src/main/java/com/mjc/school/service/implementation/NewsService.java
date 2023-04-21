@@ -1,9 +1,9 @@
 package com.mjc.school.service.implementation;
 
 
-import com.mjc.school.repository.interfaces.AuthorRepository;
-import com.mjc.school.repository.interfaces.NewsRepository;
-import com.mjc.school.repository.interfaces.TagRepository;
+import com.mjc.school.repository.implementation.AuthorRepository;
+import com.mjc.school.repository.implementation.NewsRepository;
+import com.mjc.school.repository.implementation.TagRepository;
 import com.mjc.school.repository.model.AuthorModel;
 import com.mjc.school.repository.model.NewsModel;
 import com.mjc.school.repository.model.TagModel;
@@ -24,8 +24,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static com.mjc.school.service.constants.Constants.AUTHOR_NOT_EXIST;
-import static com.mjc.school.service.constants.Constants.NEWS_NOT_EXIST;
+import static com.mjc.school.service.constants.Constants.*;
 
 @Component
 public class
@@ -44,14 +43,14 @@ NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
 
     @Override
     public List<NewsDtoResponse> readAll() {
-        return NewsMapper.INSTANCE.listNewsToNewsDtoResponse(newsRepository.findAll());
+        return NewsMapper.INSTANCE.listNewsToNewsDtoResponse(newsRepository.readAll());
     }
 
     @Validate(value = "checkNewsId")
     @Override
     public NewsDtoResponse readById(Long id) {
-        if (newsRepository.existsById(id)) {
-            Optional<NewsModel> optionalNewsModel = newsRepository.findById(id);
+        if (newsRepository.existById(id)) {
+            Optional<NewsModel> optionalNewsModel = newsRepository.readById(id);
             return NewsMapper.INSTANCE.newsToNewsDtoResponse(optionalNewsModel.get());
         } else {
             throw new NotFoundException(NEWS_NOT_EXIST);
@@ -61,15 +60,17 @@ NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
     @Override
     @Validate(value = "checkNews")
     public NewsDtoResponse create(NewsDtoRequest createRequest) {
-        if (authorRepository.existsById(createRequest.getAuthorId())) {
+        if (authorRepository.existById(createRequest.getAuthorId())) {
             NewsModel newsModel = NewsMapper.INSTANCE.newsDtoRequestToNews(createRequest);
-            if (tagRepository.existsById(createRequest.getTagId())) {
-                TagModel tagModel = tagRepository.findById(createRequest.getTagId()).get();
+            if (tagRepository.existById(createRequest.getTagId())) {
+                TagModel tagModel = tagRepository.readById(createRequest.getTagId()).get();
                 newsModel.addTag(tagModel);
+            } else {
+                throw new NotFoundException(TAG_NOT_EXIST);
             }
-            AuthorModel authorModel = authorRepository.findById(createRequest.getAuthorId()).get();
+            AuthorModel authorModel = authorRepository.readById(createRequest.getAuthorId()).get();
             newsModel.setAuthorModel(authorModel);
-            NewsModel createdNewsModel = newsRepository.save(newsModel);
+            NewsModel createdNewsModel = newsRepository.create(newsModel);
             return NewsMapper.INSTANCE.newsToNewsDtoResponse(createdNewsModel);
         } else throw new NotFoundException(AUTHOR_NOT_EXIST);
 
@@ -79,18 +80,20 @@ NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
     @Validate(value = "checkNews")
     @Override
     public NewsDtoResponse update(NewsDtoRequest updateRequest) {
-        if (newsRepository.existsById(updateRequest.getId())) {
-            NewsModel newsModel = newsRepository.findById(updateRequest.getId()).get();
-            if (authorRepository.existsById(updateRequest.getAuthorId())) {
-                AuthorModel authorModel = authorRepository.findById(updateRequest.getAuthorId()).get();
+        if (newsRepository.existById(updateRequest.getId())) {
+            NewsModel newsModel = newsRepository.readById(updateRequest.getId()).get();
+            if (authorRepository.existById(updateRequest.getAuthorId())) {
+                AuthorModel authorModel = authorRepository.readById(updateRequest.getAuthorId()).get();
                 newsModel.setTitle(updateRequest.getTitle());
                 newsModel.setContent(updateRequest.getContent());
                 newsModel.setAuthorModel(authorModel);
-                if (tagRepository.existsById(updateRequest.getTagId())) {
-                    TagModel tagModel = tagRepository.findById(updateRequest.getTagId()).get();
+                if (tagRepository.existById(updateRequest.getTagId())) {
+                    TagModel tagModel = tagRepository.readById(updateRequest.getTagId()).get();
                     newsModel.addTag(tagModel);
+                } else {
+                    throw new NotFoundException(TAG_NOT_EXIST);
                 }
-                NewsModel updatedNewsModel = newsRepository.saveAndFlush(newsModel);
+                NewsModel updatedNewsModel = newsRepository.update(newsModel);
                 return NewsMapper.INSTANCE.newsToNewsDtoResponse(updatedNewsModel);
             } else throw new NotFoundException(AUTHOR_NOT_EXIST);
         } else {
@@ -101,7 +104,7 @@ NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
     @Validate(value = "checkNewsId")
     @Override
     public boolean deleteById(Long id) {
-        if (newsRepository.existsById(id)) {
+        if (newsRepository.existById(id)) {
             newsRepository.deleteById(id);
             return true;
         } else {
@@ -111,13 +114,13 @@ NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
 
 
     public AuthorDtoResponse getAuthorByNewsId(Long id) {
-        if (newsRepository.existsById(id)) {
+        if (newsRepository.existById(id)) {
             return AuthorMapper.INSTANCE.authorModelToAuthorDtoResponse(newsRepository.getAuthorByNewsId(id));
         } else throw new NotFoundException(NEWS_NOT_EXIST);
     }
 
     public List<TagDtoResponse> getTagByNewsId(Long id) {
-        if (newsRepository.existsById(id)) {
+        if (newsRepository.existById(id)) {
             return TagMapper.INSTANCE.listTagToTagDtoResponse(newsRepository.getTagByNewsId(id));
         } else throw new NotFoundException(NEWS_NOT_EXIST);
     }

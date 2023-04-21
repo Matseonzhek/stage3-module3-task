@@ -1,6 +1,6 @@
 package com.mjc.school.service.implementation;
 
-import com.mjc.school.repository.interfaces.TagRepository;
+import com.mjc.school.repository.implementation.TagRepository;
 import com.mjc.school.repository.model.TagModel;
 import com.mjc.school.service.BaseService;
 import com.mjc.school.service.annotation.Validate;
@@ -28,37 +28,38 @@ public class TagService implements BaseService<TagDtoRequest, TagDtoResponse, Lo
 
     @Override
     public List<TagDtoResponse> readAll() {
-        return TagMapper.INSTANCE.listTagToTagDtoResponse(tagRepository.findAll());
+        return TagMapper.INSTANCE.listTagToTagDtoResponse(tagRepository.readAll());
     }
 
     @Validate
     @Override
     public TagDtoResponse readById(Long id) {
-        if (tagRepository.existsById(id)) {
-            return TagMapper.INSTANCE.tagToTagDtoResponse(tagRepository.findById(id).get());
+        if (tagRepository.existById(id)) {
+            return TagMapper.INSTANCE.tagToTagDtoResponse(tagRepository.readById(id).get());
         } else throw new NotFoundException(TAG_NOT_EXIST);
     }
 
     @Validate
     @Override
     public TagDtoResponse create(TagDtoRequest createRequest) {
-        return TagMapper.INSTANCE.tagToTagDtoResponse(tagRepository.save(TagMapper.INSTANCE.tagDtoRequestToTag(createRequest)));
+        return TagMapper.INSTANCE.tagToTagDtoResponse(tagRepository.create(TagMapper.INSTANCE.tagDtoRequestToTag(createRequest)));
     }
 
     @Validate
     @Override
     public TagDtoResponse update(TagDtoRequest updateRequest) {
-        if (tagRepository.existsById(updateRequest.getId())) {
-            TagModel tagModel = tagRepository.findById(updateRequest.getId()).get();
+        if (tagRepository.existById(updateRequest.getId())) {
+            TagModel tagModel = tagRepository.readById(updateRequest.getId()).get();
             tagModel.setName(updateRequest.getName());
-            return TagMapper.INSTANCE.tagToTagDtoResponse(tagModel);
+            TagModel updatedTagModel = tagRepository.update(tagModel);
+            return TagMapper.INSTANCE.tagToTagDtoResponse(updatedTagModel);
         } else throw new NotFoundException(TAG_NOT_EXIST);
     }
 
     @Validate
     @Override
     public boolean deleteById(Long id) {
-        if (tagRepository.existsById(id)) {
+        if (tagRepository.existById(id)) {
             tagRepository.deleteById(id);
             return true;
         } else throw new NotFoundException(TAG_NOT_EXIST);

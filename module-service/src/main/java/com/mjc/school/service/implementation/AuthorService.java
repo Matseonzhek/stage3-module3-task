@@ -1,6 +1,7 @@
 package com.mjc.school.service.implementation;
 
-import com.mjc.school.repository.interfaces.AuthorRepository;
+
+import com.mjc.school.repository.implementation.AuthorRepository;
 import com.mjc.school.repository.model.AuthorModel;
 import com.mjc.school.service.BaseService;
 import com.mjc.school.service.annotation.Validate;
@@ -27,14 +28,14 @@ public class AuthorService implements BaseService<AuthorDtoRequest, AuthorDtoRes
 
     @Override
     public List<AuthorDtoResponse> readAll() {
-        return AuthorMapper.INSTANCE.listAuthorToAuthorDtoResponse(authorRepository.findAll());
+        return AuthorMapper.INSTANCE.listAuthorToAuthorDtoResponse(authorRepository.readAll());
     }
 
     @Validate(value = "checkAuthorId")
     @Override
     public AuthorDtoResponse readById(Long id) {
-        if (authorRepository.existsById(id)) {
-            return AuthorMapper.INSTANCE.authorModelToAuthorDtoResponse(authorRepository.findById(id).get());
+        if (authorRepository.existById(id)) {
+            return AuthorMapper.INSTANCE.authorModelToAuthorDtoResponse(authorRepository.readById(id).get());
         } else {
             throw new NotFoundException(AUTHOR_NOT_EXIST);
         }
@@ -44,17 +45,17 @@ public class AuthorService implements BaseService<AuthorDtoRequest, AuthorDtoRes
     @Override
     public AuthorDtoResponse create(AuthorDtoRequest createRequest) {
         AuthorModel authorModel = AuthorMapper.INSTANCE.authorDtoRequestToAuthorModel(createRequest);
-        AuthorModel createdAuthorModel = authorRepository.save(authorModel);
+        AuthorModel createdAuthorModel = authorRepository.create(authorModel);
         return AuthorMapper.INSTANCE.authorModelToAuthorDtoResponse(createdAuthorModel);
     }
 
     @Validate(value = "checkAuthor")
     @Override
     public AuthorDtoResponse update(AuthorDtoRequest updateRequest) {
-        if (authorRepository.existsById(updateRequest.getId())) {
-            AuthorModel authorModel = authorRepository.findById(updateRequest.getId()).get();
+        if (authorRepository.existById(updateRequest.getId())) {
+            AuthorModel authorModel = authorRepository.readById(updateRequest.getId()).get();
             authorModel.setName(updateRequest.getName());
-            return AuthorMapper.INSTANCE.authorModelToAuthorDtoResponse(authorRepository.saveAndFlush(authorModel));
+            return AuthorMapper.INSTANCE.authorModelToAuthorDtoResponse(authorRepository.update(authorModel));
         } else {
             throw new NotFoundException(AUTHOR_NOT_EXIST);
         }
@@ -63,7 +64,7 @@ public class AuthorService implements BaseService<AuthorDtoRequest, AuthorDtoRes
     @Validate(value = "checkAuthorId")
     @Override
     public boolean deleteById(Long id) {
-        if (authorRepository.existsById(id)) {
+        if (authorRepository.existById(id)) {
             authorRepository.deleteById(id);
             return true;
         } else {
