@@ -1,8 +1,9 @@
 package com.mjc.school.repository.model;
 
 import com.mjc.school.repository.BaseEntity;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.transaction.Transactional;
@@ -12,13 +13,17 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "news")
 public class NewsModel implements BaseEntity<Long> {
     @ManyToOne
     private AuthorModel authorModel;
 
-    @OneToMany(mappedBy = "newsModel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<NewsTagModel> taggedNews = new ArrayList<>();
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinTable(name = "news_tag",
+            joinColumns = @JoinColumn(name = "news_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<TagModel> taggedNews = new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +33,10 @@ public class NewsModel implements BaseEntity<Long> {
     @Column(name = "content")
     private String content;
     @Column(name = "createdDate", nullable = false, updatable = false)
-    @CreationTimestamp
+    @CreatedDate
     private LocalDateTime createDate;
     @Column(name = "updatedDate", nullable = false)
-    @UpdateTimestamp
+    @LastModifiedDate
     private LocalDateTime updateDate;
 
 
@@ -96,26 +101,24 @@ public class NewsModel implements BaseEntity<Long> {
         this.authorModel = authorModel;
     }
 
-    public List<NewsTagModel> getTaggedNews() {
+    public List<TagModel> getTaggedNews() {
         return taggedNews;
     }
 
-    public void setTaggedNews(List<NewsTagModel> taggedNews) {
+    public void setTaggedNews(List<TagModel> taggedNews) {
         this.taggedNews = taggedNews;
     }
 
     @Transactional
     public void addTag(TagModel tagModel) {
-        NewsTagModel newsTagModel = new NewsTagModel(this, tagModel);
-        taggedNews.add(newsTagModel);
-        tagModel.getTags().add(newsTagModel);
+        taggedNews.add(tagModel);
+        tagModel.getTags().add(this);
     }
 
 
     public void removeTag(TagModel tagModel) {
-        NewsTagModel newsTagModel = new NewsTagModel(this, tagModel);
-        tagModel.getTags().remove(newsTagModel);
-        taggedNews.remove(newsTagModel);
+        taggedNews.remove(tagModel);
+        tagModel.getTags().remove(this);
     }
 
     @Override

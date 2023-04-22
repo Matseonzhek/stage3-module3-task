@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +24,7 @@ public class AuthorRepository implements BaseRepository<AuthorModel, Long> {
     @Override
     public List<AuthorModel> readAll() {
         String jpql = "select authors from AuthorModel authors order by authors.id";
-        TypedQuery<AuthorModel> query=entityManager.createQuery(jpql,AuthorModel.class);
+        TypedQuery<AuthorModel> query = entityManager.createQuery(jpql, AuthorModel.class);
         return query.getResultList();
     }
 
@@ -35,14 +34,12 @@ public class AuthorRepository implements BaseRepository<AuthorModel, Long> {
         return Optional.of(authorModel);
     }
 
-    @Transactional
     @Override
     public AuthorModel create(AuthorModel entity) {
         entityManager.persist(entity);
         return entity;
     }
 
-    @Transactional
     @Override
     public AuthorModel update(AuthorModel entity) {
         long id = entity.getId();
@@ -55,7 +52,6 @@ public class AuthorRepository implements BaseRepository<AuthorModel, Long> {
         return null;
     }
 
-    @Transactional
     @Override
     public boolean deleteById(Long id) {
         if (existById(id)) {

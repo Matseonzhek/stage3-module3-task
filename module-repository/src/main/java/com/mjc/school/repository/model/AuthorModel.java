@@ -1,8 +1,9 @@
 package com.mjc.school.repository.model;
 
 import com.mjc.school.repository.BaseEntity;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "authors")
 public class AuthorModel implements BaseEntity<Long> {
 
@@ -21,10 +23,10 @@ public class AuthorModel implements BaseEntity<Long> {
     @Column(name = "name")
     private String name;
     @Column(name = "createdDate", nullable = false, updatable = false)
-    @CreationTimestamp
+    @CreatedDate
     private LocalDateTime createdDate;
     @Column(name = "updatedDate", nullable = false)
-    @UpdateTimestamp
+    @LastModifiedDate
     private LocalDateTime updatedDate;
 
     public AuthorModel(Long id, String name, LocalDateTime createdDate, LocalDateTime updatedDate) {

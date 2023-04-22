@@ -58,6 +58,7 @@ NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
     }
 
     @Override
+    @Transactional
     @Validate(value = "checkNews")
     public NewsDtoResponse create(NewsDtoRequest createRequest) {
         if (authorRepository.existById(createRequest.getAuthorId())) {
@@ -101,6 +102,7 @@ NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
         }
     }
 
+    @Transactional
     @Validate(value = "checkNewsId")
     @Override
     public boolean deleteById(Long id) {

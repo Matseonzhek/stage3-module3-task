@@ -12,6 +12,7 @@ import com.mjc.school.service.interfaces.AuthorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static com.mjc.school.service.constants.Constants.AUTHOR_NOT_EXIST;
@@ -41,6 +42,7 @@ public class AuthorService implements BaseService<AuthorDtoRequest, AuthorDtoRes
         }
     }
 
+    @Transactional
     @Validate(value = "checkAuthor")
     @Override
     public AuthorDtoResponse create(AuthorDtoRequest createRequest) {
@@ -49,6 +51,7 @@ public class AuthorService implements BaseService<AuthorDtoRequest, AuthorDtoRes
         return AuthorMapper.INSTANCE.authorModelToAuthorDtoResponse(createdAuthorModel);
     }
 
+    @Transactional
     @Validate(value = "checkAuthor")
     @Override
     public AuthorDtoResponse update(AuthorDtoRequest updateRequest) {
@@ -61,6 +64,7 @@ public class AuthorService implements BaseService<AuthorDtoRequest, AuthorDtoRes
         }
     }
 
+    @Transactional
     @Validate(value = "checkAuthorId")
     @Override
     public boolean deleteById(Long id) {

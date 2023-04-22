@@ -17,8 +17,8 @@ public class TagModel implements BaseEntity<Long> {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "tagModel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<NewsTagModel> tags = new ArrayList<>();
+    @ManyToMany(mappedBy = "taggedNews", fetch = FetchType.LAZY)
+    private List<NewsModel> tags = new ArrayList<>();
 
     public TagModel(Long id, String name) {
         this.id = id;
@@ -44,11 +44,11 @@ public class TagModel implements BaseEntity<Long> {
         this.name = name;
     }
 
-    public List<NewsTagModel> getTags() {
+    public List<NewsModel> getTags() {
         return tags;
     }
 
-    public void setTags(List<NewsTagModel> tags) {
+    public void setTags(List<NewsModel> tags) {
         this.tags = tags;
     }
 

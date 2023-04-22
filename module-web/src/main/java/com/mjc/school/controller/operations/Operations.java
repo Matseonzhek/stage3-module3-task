@@ -45,7 +45,7 @@ public enum Operations {
             return new AuthorGetByNewsId(scanner, (NewsController) controller);
         }
     },
-    GET_TAG_BY_NEWS_ID(7, "Get tag by news ID") {
+    GET_TAG_BY_NEWS_ID(7, "Get tags by news ID") {
         @Override
         public <T> Command getOperation(Scanner scanner, T controller) {
             return new TagGetByNewsId(scanner, (NewsController) controller);

@@ -11,7 +11,6 @@ import org.springframework.util.ObjectUtils;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,7 +37,6 @@ public class NewsRepository implements BaseRepository<NewsModel, Long> {
         return Optional.of(newsModel);
     }
 
-    @Transactional
     @Override
     public NewsModel create(NewsModel entity) {
         entityManager.persist(entity);
@@ -59,7 +57,6 @@ public class NewsRepository implements BaseRepository<NewsModel, Long> {
         return null;
     }
 
-    @Transactional
     @Override
     public boolean deleteById(Long id) {
         if (existById(id)) {
@@ -81,11 +78,9 @@ public class NewsRepository implements BaseRepository<NewsModel, Long> {
     }
 
     public List<TagModel> getTagByNewsId(Long id) {
-        String jpql = " select tagModel from TagModel " +
-                " tagModel, NewsTagModel as newsTagModel, NewsModel as newsModel " +
-                " where tagModel = newsTagModel.tagModel " +
-                "and newsTagModel.newsModel = newsModel " +
-                "and newsModel.id=?1";
+        String jpql = " select  tagModel from  NewsModel as newsModel " +
+                " join newsModel.taggedNews tagModel  " +
+                " where newsModel.id=?1";
         TypedQuery<TagModel> query = entityManager.createQuery(jpql, TagModel.class).setParameter(1, id);
         return query.getResultList();
     }
@@ -104,15 +99,15 @@ public class NewsRepository implements BaseRepository<NewsModel, Long> {
             select.where(criteriaBuilder.like(news.get("content"), "%" + content + "%"));
         }
         if (!ObjectUtils.isEmpty(authorName)) {
-            Join<NewsModel, AuthorModel> authorJoin = news.join("author", JoinType.INNER);
+            Join<NewsModel, AuthorModel> authorJoin = news.join("authorModel", JoinType.INNER);
             select.where(criteriaBuilder.like(authorJoin.get("name"), "%" + authorName + "%"));
         }
         if (!ObjectUtils.isEmpty(tagName)) {
-            Join<NewsModel, TagModel> tagJoin = news.join("tag", JoinType.INNER);
+            Join<NewsModel, TagModel> tagJoin = news.join("taggedNews", JoinType.INNER);
             select.where(criteriaBuilder.like(tagJoin.get("name"), "%" + tagName + "%"));
         }
         if (!ObjectUtils.isEmpty(tagId)) {
-            Join<NewsModel, TagModel> tagJoin = news.join("tag", JoinType.INNER);
+            Join<NewsModel, TagModel> tagJoin = news.join("taggedNews", JoinType.INNER);
             select.where(tagJoin.get("id").in(tagId)).distinct(true);
         }
 

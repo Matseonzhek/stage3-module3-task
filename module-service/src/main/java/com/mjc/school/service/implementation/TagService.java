@@ -11,6 +11,7 @@ import com.mjc.school.service.interfaces.TagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static com.mjc.school.service.constants.Constants.TAG_NOT_EXIST;
@@ -40,12 +41,14 @@ public class TagService implements BaseService<TagDtoRequest, TagDtoResponse, Lo
     }
 
     @Validate
+    @Transactional
     @Override
     public TagDtoResponse create(TagDtoRequest createRequest) {
         return TagMapper.INSTANCE.tagToTagDtoResponse(tagRepository.create(TagMapper.INSTANCE.tagDtoRequestToTag(createRequest)));
     }
 
     @Validate
+    @Transactional
     @Override
     public TagDtoResponse update(TagDtoRequest updateRequest) {
         if (tagRepository.existById(updateRequest.getId())) {
@@ -57,6 +60,7 @@ public class TagService implements BaseService<TagDtoRequest, TagDtoResponse, Lo
     }
 
     @Validate
+    @Transactional
     @Override
     public boolean deleteById(Long id) {
         if (tagRepository.existById(id)) {

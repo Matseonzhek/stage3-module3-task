@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +23,7 @@ public class TagRepository implements BaseRepository<TagModel, Long> {
     @Override
     public List<TagModel> readAll() {
         String jpql = "select tag from TagModel tag order by tag.id";
-        TypedQuery<TagModel> query = entityManager.createQuery(jpql,TagModel.class);
+        TypedQuery<TagModel> query = entityManager.createQuery(jpql, TagModel.class);
         return query.getResultList();
     }
 
@@ -34,17 +33,15 @@ public class TagRepository implements BaseRepository<TagModel, Long> {
         return Optional.of(tagModel);
     }
 
-    @Transactional
     @Override
     public TagModel create(TagModel entity) {
         entityManager.persist(entity);
         return entity;
     }
 
-    @Transactional
     @Override
     public TagModel update(TagModel entity) {
-        if(existById(entity.getId())){
+        if (existById(entity.getId())) {
             TagModel updatedTagModel = readById(entity.getId()).get();
             updatedTagModel.setName(entity.getName());
             entityManager.persist(updatedTagModel);
@@ -53,7 +50,6 @@ public class TagRepository implements BaseRepository<TagModel, Long> {
         return null;
     }
 
-    @Transactional
     @Override
     public boolean deleteById(Long id) {
         if (existById(id)) {
@@ -66,6 +62,6 @@ public class TagRepository implements BaseRepository<TagModel, Long> {
 
     @Override
     public boolean existById(Long id) {
-        return readById(id).isPresent() ;
+        return readById(id).isPresent();
     }
 }
