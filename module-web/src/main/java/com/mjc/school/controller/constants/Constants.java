@@ -19,13 +19,13 @@ public class Constants {
     public static String WRONG_NUMBER_OF_OPERATION = "Operation not found";
 
     public static Integer FIRST_OPERATION = 0;
-    public static Integer LAST_OPERATION = 17;
-    public static Integer AUTHOR_FIRST_OPERATION = 8;
-    public static Integer AUTHOR_LAST_OPERATION = 12;
+    public static Integer LAST_OPERATION = 18;
+    public static Integer AUTHOR_FIRST_OPERATION = 9;
+    public static Integer AUTHOR_LAST_OPERATION = 13;
     public static Integer NEWS_FIRST_OPERATION = 1;
-    public static Integer NEWS_LAST_OPERATION = 7;
-    public static Integer TAG_FIRST_OPERATION = 13;
-    public static Integer TAG_LAST_OPERATION = 17;
+    public static Integer NEWS_LAST_OPERATION = 8;
+    public static Integer TAG_FIRST_OPERATION = 14;
+    public static Integer TAG_LAST_OPERATION = 18;
 
     private Constants() {
     }

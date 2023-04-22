@@ -54,4 +54,8 @@ public class NewsController implements BaseController<NewsDtoRequest, NewsDtoRes
     public List<TagDtoResponse> getTagByNewsId(Long id) {
         return newsService.getTagByNewsId(id);
     }
+
+    public List<NewsDtoResponse> getNewsByOption(String tagName, Long tagId, String authorName, String title, String content) {
+        return newsService.getNewsByOption(tagName, tagId, authorName, title, content);
+    }
 }

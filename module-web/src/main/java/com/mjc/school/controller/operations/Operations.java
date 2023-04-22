@@ -51,61 +51,67 @@ public enum Operations {
             return new TagGetByNewsId(scanner, (NewsController) controller);
         }
     },
-    GET_ALL_AUTHORS(8, "Get all authors") {
+    GET_NEWS_BY_OPTION(8, "Get news by option") {
+        @Override
+        public <T> Command getOperation(Scanner scanner, T controller) {
+            return new NewsGetByOption((NewsController) controller, scanner);
+        }
+    },
+    GET_ALL_AUTHORS(9, "Get all authors") {
         @Override
         public <T> Command getOperation(Scanner scanner, T controller) {
             return new AuthorGetAll((AuthorController) controller);
         }
     },
-    GET_AUTHOR_BY_ID(9, "Get author by ID") {
+    GET_AUTHOR_BY_ID(10, "Get author by ID") {
         @Override
         public <T> Command getOperation(Scanner scanner, T controller) {
             return new AuthorGetById(scanner, (AuthorController) controller);
         }
     },
-    CREATE_AUTHOR(10, "Create author") {
+    CREATE_AUTHOR(11, "Create author") {
         @Override
         public <T> Command getOperation(Scanner scanner, T controller) {
             return new AuthorCreate(scanner, (AuthorController) controller);
         }
     },
-    UPDATE_AUTHOR(11, "Update author") {
+    UPDATE_AUTHOR(12, "Update author") {
         @Override
         public <T> Command getOperation(Scanner scanner, T controller) {
             return new AuthorUpdate(scanner, (AuthorController) controller);
         }
     },
-    DELETE_AUTHOR(12, "Delete author") {
+    DELETE_AUTHOR(13, "Delete author") {
         @Override
         public <T> Command getOperation(Scanner scanner, T controller) {
             return new AuthorDelete(scanner, (AuthorController) controller);
         }
     },
-    GET_ALL_TAG(13, "Get all tags") {
+    GET_ALL_TAG(14, "Get all tags") {
         @Override
         public <T> Command getOperation(Scanner scanner, T controller) {
             return new TagGetAll((TagController) controller);
         }
     },
-    GET_TAG_BY_ID(14, "Get tag by ID") {
+    GET_TAG_BY_ID(15, "Get tag by ID") {
         @Override
         public <T> Command getOperation(Scanner scanner, T controller) {
             return new TagGetById(scanner, (TagController) controller);
         }
     },
-    CREATE_TAG(15, "Create tag") {
+    CREATE_TAG(16, "Create tag") {
         @Override
         public <T> Command getOperation(Scanner scanner, T controller) {
             return new TagCreate(scanner, (TagController) controller);
         }
     },
-    UPDATE_TAG(16, "Update tag") {
+    UPDATE_TAG(17, "Update tag") {
         @Override
         public <T> Command getOperation(Scanner scanner, T controller) {
             return new TagUpdate(scanner, (TagController) controller);
         }
     },
-    DELETE_TAG(17, "Delete tag") {
+    DELETE_TAG(18, "Delete tag") {
         @Override
         public <T> Command getOperation(Scanner scanner, T controller) {
             return new TagDelete(scanner, (TagController) controller);

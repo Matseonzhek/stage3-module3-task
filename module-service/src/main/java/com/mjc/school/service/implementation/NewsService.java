@@ -124,4 +124,9 @@ NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
             return TagMapper.INSTANCE.listTagToTagDtoResponse(newsRepository.getTagByNewsId(id));
         } else throw new NotFoundException(NEWS_NOT_EXIST);
     }
+
+    public List<NewsDtoResponse> getNewsByOption(String tagName, Long tagId, String authorName, String title, String content) {
+        return NewsMapper.INSTANCE.listNewsToNewsDtoResponse
+                (newsRepository.getNewsByOption(tagName, tagId, authorName, title, content));
+    }
 }
