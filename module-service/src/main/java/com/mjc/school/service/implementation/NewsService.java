@@ -18,7 +18,7 @@ import com.mjc.school.service.interfaces.AuthorMapper;
 import com.mjc.school.service.interfaces.NewsMapper;
 import com.mjc.school.service.interfaces.TagMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.Optional;
 
 import static com.mjc.school.service.constants.Constants.*;
 
-@Component
+@Service
 public class
 NewsService implements BaseService<NewsDtoRequest, NewsDtoResponse, Long> {
 
