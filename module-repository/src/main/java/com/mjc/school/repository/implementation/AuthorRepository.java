@@ -31,7 +31,7 @@ public class AuthorRepository implements BaseRepository<AuthorModel, Long> {
     @Override
     public Optional<AuthorModel> readById(Long id) {
         AuthorModel authorModel = entityManager.find(AuthorModel.class, id);
-        return Optional.of(authorModel);
+        return Optional.ofNullable(authorModel);
     }
 
     @Override

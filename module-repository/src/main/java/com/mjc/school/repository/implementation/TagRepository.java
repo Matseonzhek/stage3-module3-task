@@ -30,7 +30,7 @@ public class TagRepository implements BaseRepository<TagModel, Long> {
     @Override
     public Optional<TagModel> readById(Long id) {
         TagModel tagModel = entityManager.find(TagModel.class, id);
-        return Optional.of(tagModel);
+        return Optional.ofNullable(tagModel);
     }
 
     @Override

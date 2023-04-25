@@ -13,6 +13,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -20,10 +21,10 @@ import java.util.Properties;
 
 @Configuration
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@EnableJpaRepositories(basePackages = "com.mjc.school.repository")
+@EnableJpaRepositories(basePackages = "com.mjc.school.*")
 @EnableJpaAuditing
 @EnableTransactionManagement
-@EntityScan("com.mjc.school.repository.model")
+@EntityScan("com.mjc.school.*")
 @ComponentScan("com.mjc.school.*")
 @PropertySource("classpath:application.properties")
 public class ApiConfig {
@@ -51,7 +52,7 @@ public class ApiConfig {
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("com.mjc.school");
+        factory.setPackagesToScan("com.mjc.school.*");
         factory.setDataSource(dataSource());
         factory.setJpaProperties(additionalProperties());
         return factory;
@@ -61,7 +62,7 @@ public class ApiConfig {
     public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
 
         JpaTransactionManager txManager = new JpaTransactionManager();
-        txManager.setEntityManagerFactory(entityManagerFactory);
+        txManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return txManager;
     }
 
@@ -77,5 +78,8 @@ public class ApiConfig {
         return hibernateProperties;
     }
 
-
+    @Bean
+    public TransactionTemplate tx(PlatformTransactionManager transactionManager) {
+        return new TransactionTemplate(transactionManager);
+    }
 }
