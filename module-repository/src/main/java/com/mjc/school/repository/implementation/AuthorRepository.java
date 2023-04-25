@@ -3,7 +3,9 @@ package com.mjc.school.repository.implementation;
 import com.mjc.school.repository.BaseRepository;
 import com.mjc.school.repository.model.AuthorModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -14,11 +16,15 @@ import java.util.Optional;
 public class AuthorRepository implements BaseRepository<AuthorModel, Long> {
 
 
-    private final EntityManager entityManager;
+    @Autowired
+    @Qualifier(value = "tx")
+    private final TransactionTemplate transactionTemplate;
+    EntityManager entityManager;
 
     @Autowired
-    public AuthorRepository(EntityManager entityManager) {
+    public AuthorRepository(EntityManager entityManager, TransactionTemplate transactionTemplate) {
         this.entityManager = entityManager;
+        this.transactionTemplate = transactionTemplate;
     }
 
     @Override
@@ -36,7 +42,8 @@ public class AuthorRepository implements BaseRepository<AuthorModel, Long> {
 
     @Override
     public AuthorModel create(AuthorModel entity) {
-        entityManager.persist(entity);
+        transactionTemplate.executeWithoutResult(pop->entityManager.persist(entity));
+//        entityManager.persist(entity);
         return entity;
     }
 
